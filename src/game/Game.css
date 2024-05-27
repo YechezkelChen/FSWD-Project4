@@ -1,0 +1,13 @@
+.title-card {
+    text-align: center;
+}
+
+.participant {
+    background-color: yellow;
+    color: blue;
+}
+
+.participant:focus {
+    background-color: cyan;
+    color:red;
+}
