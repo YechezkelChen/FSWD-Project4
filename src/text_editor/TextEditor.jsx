@@ -1,50 +1,24 @@
 import React, { useState } from 'react';
 
-function TextEditor({ textSegments, addTextSegment, updateCurrentText }) {
-  const [inputText, setInputText] = useState('');
+function TextEditor({ currentText, currentStyle, onTextChange }) {
+    const handleInputChange = ({ target }) => {
+        onTextChange(target.innerText);
+    };
 
-  const handleInputChange = ({ target }) => {
-    const newText = target.value;
-    setInputText(newText);
-    updateCurrentText(newText);
-  };
-
-  const handleAddTextSegment = () => {
-    if (inputText.trim()) {
-      addTextSegment({ text: inputText });
-      setInputText('');
-    }
-  };
-
-  return (
-    <div className="text-editor">
-      <div className="display-text">
-        {textSegments.map((segment, index) => (
-          <span
-            key={index}
+    return (
+        <div
+            className="text-editor"
+            contentEditable="true"
+            suppressContentEditableWarning={true}
             style={{
-              fontFamily: segment.style.font,
-              fontSize: `${segment.style.size}px`,
-              color: segment.style.color,
-              textTransform: segment.style.case === 'uppercase' ? 'uppercase' : 'lowercase',
+                fontFamily: currentStyle.font,
+                fontSize: `${currentStyle.size}px`,
+                color: currentStyle.color,
+                textTransform: currentStyle.case === 'uppercase' ? 'uppercase' : 'lowercase',
             }}
-          >
-            {segment.text}
-          </span>
-        ))}
-      </div>
-      <textarea
-        value={inputText}
-        onChange={handleInputChange}
-        style={{
-          fontFamily: 'inherit',
-          fontSize: 'inherit',
-          color: 'inherit',
-        }}
-      />
-      <button onClick={handleAddTextSegment}>Add Text</button>
-    </div>
-  );
+            onInput={handleInputChange}
+        />
+    );
 }
 
 export default TextEditor;

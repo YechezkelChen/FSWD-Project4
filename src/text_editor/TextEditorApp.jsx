@@ -5,47 +5,37 @@ import ActionButtons from './ActionButtons';
 import './TextEditorApp.css';
 
 function TextEditorApp() {
-  const [textSegments, setTextSegments] = useState([]);
+  const [currentText, setCurrentText] = useState('');
   const [history, setHistory] = useState([]);
   const [currentStyle, setCurrentStyle] = useState({ font: 'Arial', size: '16px', color: '#000000', case: 'none' });
 
-  const addTextSegment = (segment) => {
-    setHistory([...history, textSegments]);
-    setTextSegments([...textSegments, { ...segment, style: currentStyle }]);
-  };
-
-  const updateCurrentText = (text) => {
-    const newSegment = { text, style: currentStyle };
-    setTextSegments([...textSegments.slice(0, -1), newSegment]);
+  const handleTextChange = (newText) => {
+    setHistory([...history, currentText]);
+    setCurrentText(newText);
   };
 
   const handleStyleChange = (newStyle) => {
     setCurrentStyle(newStyle);
   };
 
-  const handleDeleteLastSegment = () => {
-    setHistory([...history, textSegments]);
-    setTextSegments(textSegments.slice(0, -1));
-  };
-
   const handleClearAllText = () => {
-    setHistory([...history, textSegments]);
-    setTextSegments([]);
+    setHistory([...history, currentText]);
+    setTextSegments('');
   };
 
   const undoLastAction = () => {
     if (history.length > 0) {
       const previousState = history[history.length - 1];
       setHistory(history.slice(0, -1));
-      setTextSegments(previousState);
+      setCurrentText(previousState);
     }
   };
 
   return (
     <div className="text-editor-app">
       <Toolbar currentStyle={currentStyle} onStyleChange={handleStyleChange} />
-      <TextEditor textSegments={textSegments} addTextSegment={addTextSegment} updateCurrentText={updateCurrentText} />
-      <ActionButtons onDelete={handleDeleteLastSegment} onClear={handleClearAllText} onUndo={undoLastAction} />
+      <TextEditor currentText={currentText} currentStyle={currentStyle} onTextChange={handleTextChange} />
+      <ActionButtons onClear={handleClearAllText} onUndo={undoLastAction} />
     </div>
   );
 }

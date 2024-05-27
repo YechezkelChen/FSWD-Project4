@@ -6,6 +6,7 @@
 }
 
 .text-editor {
+    background-color: #ccc;
     margin: 20px;
     width: 80%;
 }
