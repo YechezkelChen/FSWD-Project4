@@ -1,87 +1,80 @@
 import { useState } from "react";
-import ScoreGame from "./ScoreGame.jsx"
 
+const actions = {
+    "+1": x => x+1,
+    "-1": x => x-1,
+    "x2": x => 2*x,
+    "/2": x => Math.floor(x/2)
+}
+
+
+
+const GOAL = 100;
 const randInt = (max,min) => Math.floor(Math.random() * (max - min) + min);
 
-const goal = 100;
+function start() {
+    return randInt(0,GOAL);
+}
 
+function isWin(num) { return num === GOAL }
 
-export default function SessionGame() {
-    const active = true; 
-    const shai = {
-        name: "Shai",
-        count: 0,
-        score: [],
-        gameState: randInt(0,100),
-        playing: true
-    }
-    const [number, setNumber] = useState(shai.gameState);
-    const [count, setCount] = useState(shai.count);
-    const [score, setScore] = useState(shai.score);
-    const [playing, setPlaying] = useState(shai.playing)
+function setTheScore(name, num) {
+    const score = JSON.parse(localStorage.getItem(name));
+    localStorage.setItem(name, JSON.stringify([...score, num]));
+    window.dispatchEvent(new Event("storage"));
+}
 
-    const addScore = () => setCount(count+1);
+export default function SessionGame(props) {
 
-    const handlePlusOne = () => {
-        setNumber(number+1);
-        addScore();
-    }
+    const [gameState, setGameState] = useState(start());
+    const [count, setCount] = useState(0);
 
-    const minusOne = () => {
-        setNumber(number-1);
-        addScore();
-    }
+    const addCount = () => setCount(count+1);
 
-    const timesTwo = () => {
-        setNumber(number * 2);
-        addScore();
-    }
-
-    const half = () => {
-        setNumber(Math.floor(number/2));
-        addScore();
+    const handlePlayButtonCLick = (a,e) => {
+        const number = actions[a](gameState)
+        setGameState(number)
+        addCount();
+        if(!isWin(number)){
+            props.handleDone(e);
+        }
     }
     
-    const reset = () => {
-        setScore([...score, count])
-        localStorage.setItem(shai.name, JSON.stringify([...score, count]));
+    const reset = (e) => {
+        setTheScore(props.name, count);
         setCount(0);
-        setNumber(randInt(0,goal));
+        setGameState(start());
+        props.handleDone(e)
     }
 
-    const remove = () => {
-        setScore([...score, count])
-        localStorage.setItem(shai.name,JSON.stringify([...score, count]))
-        setPlaying(false);
+    const remove = (e) => {
+        setTheScore(props.name, count);
+        props.handleQuit(e);
     }
 
     const playButtons = (
         <div>
-            <button className="gameButtons" onClick={handlePlusOne}>+1</button>
-            <button className="gameButtons" onClick={minusOne}>-1</button>
-            <button className="gameButtons" onClick={timesTwo}>x2</button>
-            <button className="gameButtons" onClick={half}>/2</button>
+            {Object.keys(actions).map(a => <button className="gameButtons" key={a} onClick={(e) => handlePlayButtonCLick(a,e)}>{a}</button>)}
         </div>
     );
 
     const optButtons = (
         <div>
-            <button className="gameButtons" onClick={reset}>Play Again</button>
+            <button className="gameButtons" onClick={(e) => reset(e)}>Play Again</button>
             <p style={{display:"inline-block", margin:"0 10px"}}><b>You Win!!!</b></p>
-            <button className="gameButtons" onClick={remove} id="quit">Quit</button>
+            <button className="gameButtons" onClick={(e) => remove(e)} id="quit">Quit</button>
         </div>
     )
 
-    const controls = (number === goal ? optButtons: playButtons)
+    const controls = (isWin(gameState) ? optButtons: playButtons);
 
     return (
-        <div style={{display: playing? "block" : "none"}}>
-             <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}}>
-                <h3>{shai.name}</h3>
-                <h3>Current Number: {number}</h3>
-            </div>
-            <ScoreGame count={count} score={score}/>
-            {active && controls}
+        <div style={{alignContent:"center", textAlign:"center", justifyContent:"center"}}>
+            <h2>{gameState}</h2>
+            <h3>Count: {count}</h3>
+            {props.active && controls}
         </div>
     );
 }
+
+export { start };

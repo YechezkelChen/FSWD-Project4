@@ -1,9 +1,15 @@
+import { useState } from "react";
+
 export default function scoreGame(props) {
-    const scoreList = props.score.map(s => ` ${s}`);
+    const scores = JSON.parse(localStorage.getItem(props.player));
+    const [scoreList, setScoreList] = useState(scores.map(s=>`${s}, `));
+    window.addEventListener('storage', () => {
+        const scores = JSON.parse(localStorage.getItem(props.player));
+        setScoreList(scores.map(s=>`${s}, `));
+    })
     return (
         <div>
-                <h3 style={{display: "inline-block", margin:"0 20px"}}>Count: {props.count}</h3>
-                <h3 style={{display: "inline-block", margin:"20px"}}>Score: {scoreList}</h3>
+                <h3>Score: {scoreList}</h3>
         </div>
     )
 }
