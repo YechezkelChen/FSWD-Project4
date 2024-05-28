@@ -5,7 +5,7 @@ import ActionButtons from './ActionButtons';
 import './TextEditorApp.css';
 
 function TextEditorApp() {
-  const [currentText, setCurrentText] = useState('');
+  const [currentText, setCurrentText] = useState([]);
   const [history, setHistory] = useState([]);
   const [currentStyle, setCurrentStyle] = useState({ font: 'Arial', size: '16px', color: '#000000', case: 'none' });
 
@@ -20,7 +20,7 @@ function TextEditorApp() {
 
   const handleClearAllText = () => {
     setHistory([...history, currentText]);
-    setTextSegments('');
+    setCurrentText([]);
   };
 
   const undoLastAction = () => {
