@@ -10,7 +10,7 @@ function Toolbar({ currentStyle, onStyleChange }) {
     <div className="toolbar">
       <label>
         Font:
-        <select name="font" value={currentStyle.font} onChange={handleStyleChange}>
+        <select name="fontFamily" value={currentStyle.fontFamily} onChange={handleStyleChange}>
           <option value="Arial">Arial</option>
           <option value="Courier New">Courier New</option>
           <option value="Georgia">Georgia</option>
@@ -20,19 +20,11 @@ function Toolbar({ currentStyle, onStyleChange }) {
       </label>
       <label>
         Size:
-        <input type="number" name="size" min={1} value={parseInt(currentStyle.size)} onChange={handleStyleChange} /> px
+        <input type="number" name="fontSize" min={1} value={parseInt(currentStyle.fontSize)} onChange={handleStyleChange} /> px
       </label>
       <label>
         Color:
         <input type="color" name="color" value={currentStyle.color} onChange={handleStyleChange} />
-      </label>
-      <label>
-        Case:
-        <select name="case" value={currentStyle.case} onChange={handleStyleChange}>
-          <option value="none">None</option>
-          <option value="uppercase">UPPERCASE</option>
-          <option value="lowercase">lowercase</option>
-        </select>
       </label>
     </div>
   );

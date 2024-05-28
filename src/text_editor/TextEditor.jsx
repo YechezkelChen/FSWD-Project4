@@ -1,39 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Toolbar from './Toolbar';
+import EngLowerKeyboard from './EngLowerKeyboard'
+import EngUpperKeyboard from './EngUpperKeyboard'
+import HebKeyboard from './HebKeyboard'
+import NumbersAndSpecialKeyboard from './NumbersAndSpecialKeyboard'
+import Output from './Output';
+import ActionButtons from './ActionButtons';
+import './TextEditor.css';
 
-function TextEditor({ currentText, currentStyle, onTextChange }) {
-  const handleInputChange = (e) => {
-    const textNodes = Array.from(e.target.childNodes).map(node => ({
-      text: node.textContent,
-      style: node.nodeType === Node.ELEMENT_NODE ? {
-        font: node.style.fontFamily,
-        size: node.style.fontSize,
-        color: node.style.color,
-        case: node.style.textTransform,
-      } : currentStyle,
-    }));
-    onTextChange(textNodes);
+function TextEditor() {
+  const [currentText, setCurrentText] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [currentStyle, setCurrentStyle] = useState({ fontFamily: 'Arial', fontSize: '16', color: '#000000' });
+
+  const handleTextChange = (newText) => {
+    setHistory(prevHistory => [...prevHistory, currentText]);
+    setCurrentText(prevText => [...prevText, newText]);
+  };
+
+  const handleStyleChange = (newStyle) => {
+    setCurrentStyle(newStyle);
+  };
+
+  const handleClearAllText = () => {
+    setHistory(prevHistory => [...prevHistory, currentText]);
+    setCurrentText([]);
+  };
+
+  const undoLastAction = () => {
+    if (history.length > 0) {
+      const previousState = history[history.length - 1];
+      setHistory(prevHistory => prevHistory.slice(0, -1));
+      setCurrentText(previousState);
+    }
   };
 
   return (
-    <div
-      className="text-editor"
-      contentEditable="true"
-      suppressContentEditableWarning={true}
-      onInput={handleInputChange}
-    >
-      {currentText.map((chunk, index) => (
-        <span
-          key={index}
-          style={{
-            fontFamily: chunk.style.font,
-            fontSize: chunk.style.size,
-            color: chunk.style.color,
-            textTransform: chunk.style.case === 'uppercase' ? 'uppercase' : 'lowercase',
-          }}
-        >
-          {chunk.text}
-        </span>
-      ))}
+    <div className="text-editor">
+      <Toolbar currentStyle={currentStyle} onStyleChange={handleStyleChange} />
+      <br />
+      <EngLowerKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />
+      <br />
+      <EngUpperKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />
+      <br />
+      <HebKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />
+      <br />
+      <NumbersAndSpecialKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />
+      <br />
+      <Output currentText={currentText} />
+      <ActionButtons onClear={handleClearAllText} onUndo={undoLastAction} />
     </div>
   );
 }
