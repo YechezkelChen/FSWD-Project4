@@ -36,11 +36,17 @@ function TextEditor() {
     }
   };
 
+  const deleteLastCharacter = () => {
+    setHistory(prevHistory => [...prevHistory, currentText]);
+    setCurrentText(prevText => prevText.slice(0, -1));
+  };
+
   const handleKeyboardChange = (keyboard) => {
     setCurrentKeyboard(keyboard);
   };
 
   const handleApplyStyleToAll = (style) => {
+    setHistory(prevHistory => [...prevHistory, currentText]);
     setCurrentText(prevText => prevText.map(char => ({ ...char, style: { ...char.style, ...style } })));
   };
 
@@ -69,7 +75,7 @@ function TextEditor() {
         {currentKeyboard === 'NumSpec' && <NumbersAndSpecialKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />}
       </div>
       <Output currentText={currentText} />
-      <ActionButtons onClear={handleClearAllText} onUndo={undoLastAction} />
+      <ActionButtons onClear={handleClearAllText} onUndo={undoLastAction} onDeleteLastCharacter={deleteLastCharacter} />
     </div>
   );
 }
