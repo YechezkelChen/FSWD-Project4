@@ -51,6 +51,7 @@ function TextEditor() {
   };
 
   const handleCaseChange = (caseType) => {
+    setHistory(prevHistory => [...prevHistory, currentText]);
     setCurrentText(prevText =>
       prevText.map(char => ({
         ...char,

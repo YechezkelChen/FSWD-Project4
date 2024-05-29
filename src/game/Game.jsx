@@ -62,6 +62,7 @@ export default function Game() {
     return (
         <>
             <div className='title-card'>
+                <h1>Get To 100!!!</h1>
                 <HighScores />
             </div>
             <main>
