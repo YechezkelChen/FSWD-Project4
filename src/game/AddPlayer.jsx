@@ -2,11 +2,11 @@ export default function AddPlayer(props) {
 
     return (
         <div className="setup">
-            <form className='addForm' onSubmit={props.handleAddPlayer} style={{ display: "inline-block" }}>
-                <label htmlFor="addPlayer">Add Player</label>
+            <form className='add-form' onSubmit={props.handleAddPlayer} style={{ display: "inline-block" }}>
+                <label htmlFor="add-player">Add Player</label>
                 <input
                     autoFocus
-                    id='addPlayer'
+                    id='add-player'
                     type='text'
                     placeholder="Your name"
                     required

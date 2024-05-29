@@ -5,7 +5,6 @@ import { useState } from 'react';
 export default function participantGame(props) {
     //Use States
     const [active, setActive] = useState(0);
-    const [scores, setScores] = useState([])
 
     //Handlers
     const handleDone = (e) => {
@@ -15,15 +14,19 @@ export default function participantGame(props) {
 
     const handleQuit = (e) => {
         props.handleRemovePlayer(props.players[active], e);
+        setActive(active >= [...props.players].length-1 ? 0: active);
     }
 
     //Return List
     const participantList = props.players.map(p => {
         return (
-            <div className='player' key={p} style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <div className={[...props.players][active] === p ? 'active':'idle'}
+                key={p} 
+                style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
                     <h2>{p}</h2>
-                    <ScoreGame player={p} scores={scores} setScores={setScores} />
+                    <ScoreGame player={p} />
                 </div>
                 {props.run &&
                     <SessionGame
@@ -36,6 +39,6 @@ export default function participantGame(props) {
         )
     });
 
-    return (<div className='playerlist'>{participantList}</div>
+    return (<div className='player-list'>{participantList}</div>
     );
 }

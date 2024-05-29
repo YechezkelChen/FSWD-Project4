@@ -2,15 +2,10 @@
     text-align: center;
 }
 
-.participant {
-    background-color: yellow;
-    color: blue;
+.idle {
+    background-color: lightblue;
 }
 
-.participant:focus {
-    background-color: cyan;
-    color: red;
-}
 
 .game-buttons {
     background-color: #007bff;
