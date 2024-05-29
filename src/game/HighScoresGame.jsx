@@ -41,9 +41,9 @@ export default function highScores() {
     return (<>
         <h4>High Scores</h4>
         <ul style={highScoreStyle}>
-            <li>{first[0]}: {first[1]}</li>
-            <li>{second[0]}: {second[1]}</li>
-            <li>{third[0]}: {third[1]}</li>
+            {first && <li>{first[0]}: {first[1]}</li>}
+            {seconde &&<li>{second[0]}: {second[1]}</li>}
+            {third && <li>{third[0]}: {third[1]}</li>}
         </ul>
     </>);
 }
