@@ -1,8 +1,8 @@
 export default function AddPlayer(props) {
-    
+
     return (
         <div className="setup">
-            <form className='addForm' onSubmit={props.handleAddPlayer} style={{display:"inline-block"}}>
+            <form className='addForm' onSubmit={props.handleAddPlayer} style={{ display: "inline-block" }}>
                 <label htmlFor="addPlayer">Add Player</label>
                 <input
                     autoFocus
@@ -10,15 +10,16 @@ export default function AddPlayer(props) {
                     type='text'
                     placeholder="Your name"
                     required
-                    value = {props.newPlayer}
+                    value={props.newPlayer}
                     onChange={(e) => props.setNewPlayer(e.target.value)}
                 />
                 <button
+                    className="game-buttons"
                     type="submit"
                     aria-label="Add Player">+</button>
             </form>
-            <button onClick={props.handleStartButton} style={{margin:"0 10px"}}>Start</button>
+            <button className="game-buttons" onClick={props.handleStartButton} style={{ margin: "0 10px" }}>Start</button>
         </div>
-        
+
     )
 }

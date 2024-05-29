@@ -3,7 +3,7 @@ import Toolbar from './Toolbar';
 import EngLowerKeyboard from './EngLowerKeyboard';
 import EngUpperKeyboard from './EngUpperKeyboard';
 import HebKeyboard from './HebKeyboard';
-import NumbersAndSpecialKeyboard from './NumbersAndSpecialKeyboard';
+import NumbersAndSymbolsKeyboard from './NumbersAndSymbolsKeyboard';
 import Output from './Output';
 import ActionButtons from './ActionButtons';
 import './TextEditor.css';
@@ -72,7 +72,7 @@ function TextEditor() {
         {currentKeyboard === 'EngLower' && <EngLowerKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />}
         {currentKeyboard === 'EngUpper' && <EngUpperKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />}
         {currentKeyboard === 'Heb' && <HebKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />}
-        {currentKeyboard === 'NumSpec' && <NumbersAndSpecialKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />}
+        {currentKeyboard === 'NumSymb' && <NumbersAndSymbolsKeyboard onTextChange={handleTextChange} currentStyle={currentStyle} />}
       </div>
       <Output currentText={currentText} />
       <ActionButtons onClear={handleClearAllText} onUndo={undoLastAction} onDeleteLastCharacter={deleteLastCharacter} />

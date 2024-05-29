@@ -9,12 +9,12 @@ function HebKeyboard({ onTextChange, currentStyle }) {
 
     return (
         <div className="keyboard-button">
-            {hebLetters.map((charter, i) => (
+            {hebLetters.map((character, i) => (
                 <button
                     key={`${i}-heb-keyboard`}
                     onClick={handleClicked}
                 >
-                    {charter}
+                    {character}
                 </button>
             ))}
         </div>

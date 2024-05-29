@@ -9,12 +9,12 @@ function EngUpperKeyboard({ onTextChange, currentStyle }) {
 
     return (
         <div className="keyboard-button">
-            {engUpperLetters.map((charter, i) => (
+            {engUpperLetters.map((character, i) => (
                 <button
                     key={`${i}-eng-upper-keyboard`}
                     onClick={handleClicked}
                 >
-                    {charter}
+                    {character}
                 </button>
             ))}
         </div>

@@ -9,5 +9,20 @@
 
 .participant:focus {
     background-color: cyan;
-    color:red;
+    color: red;
+}
+
+.game-buttons {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.game-buttons:hover {
+    background-color: #0056b3;
 }

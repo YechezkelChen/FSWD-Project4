@@ -4,8 +4,6 @@ import AddPlayer from './AddPlayer';
 import './Game.css'
 import { useState } from 'react';
 
-
-
 export default function Game() {
     //useStates
     const [players, setPlayers] = useState([]);
@@ -14,12 +12,12 @@ export default function Game() {
 
     //Helper Functions
     const addPlayer = (name) => {
-        if(players.indexOf(name) > -1) return;
+        if (players.indexOf(name) > -1) return;
         else {
             const register = name;
             setPlayers([...players, register]);
-            if(localStorage.getItem(name) === null){
-                localStorage.setItem(name,'[]');
+            if (localStorage.getItem(name) === null) {
+                localStorage.setItem(name, '[]');
             }
         }
     }
@@ -29,16 +27,16 @@ export default function Game() {
     }
 
     const startGame = () => {
-        if(players.length === 0) {
+        if (players.length === 0) {
             alert("No players in Queue!")
         }
-        else{
+        else {
             setRun(true);
         }
     }
 
     const checkRemaining = () => {
-        if(players.length <= 1) {
+        if (players.length <= 1) {
             setRun(false);
         }
     }
@@ -46,7 +44,7 @@ export default function Game() {
     //handler functions
     const handleAddPlayer = (e) => {
         e.preventDefault();
-        if(!newPlayer) return;
+        if (!newPlayer) return;
         addPlayer(newPlayer);
         setNewPlayer('');
     }
@@ -55,32 +53,30 @@ export default function Game() {
         startGame()
     }
 
-    const handleRemovePlayer = (n,e) => {
+    const handleRemovePlayer = (n, e) => {
         setPlayers([...players].filter(x => x != n));
         checkRemaining();
     }
 
     //JSX return
-    return(
+    return (
         <>
             <div className='title-card'>
-                <h1>Get To 100!!!</h1>
                 <HighScores />
             </div>
             <main>
-                {!(run) && <AddPlayer 
-                    newPlayer = {newPlayer}
-                    setNewPlayer = {setNewPlayer}
-                    handleAddPlayer = {handleAddPlayer}
-                    handleStartButton = {handleStartButton}
+                {!(run) && <AddPlayer
+                    newPlayer={newPlayer}
+                    setNewPlayer={setNewPlayer}
+                    handleAddPlayer={handleAddPlayer}
+                    handleStartButton={handleStartButton}
                 />}
-                <ParticipantGame 
-                    players = {players}
-                    run = {run}
-                    handleRemovePlayer = {handleRemovePlayer}
+                <ParticipantGame
+                    players={players}
+                    run={run}
+                    handleRemovePlayer={handleRemovePlayer}
                 />
             </main>
-                
         </>
     )
 }

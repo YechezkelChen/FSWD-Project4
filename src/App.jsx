@@ -19,7 +19,10 @@ function App() {
 
   return (
     <div className="main-container">
-      <h1>Main Page</h1>
+      {!showTextEditor && !showGame &&  <h1>Main Page</h1>}
+      {showTextEditor && <h1>Text Editor</h1>}
+      {showGame && <h1>Get To 100!!!</h1>}
+      
       <div className="button-container">
         <button className="app-button" onClick={handleTextEditorClick}>Text Editor</button>
         <button className="app-button" onClick={handleGameClick}>Game</button>

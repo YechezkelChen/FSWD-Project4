@@ -1,19 +1,17 @@
 import { useState } from "react";
 
 const actions = {
-    "+1": x => x+1,
-    "-1": x => x-1,
-    "x2": x => 2*x,
-    "/2": x => Math.floor(x/2)
+    "+1": x => x + 1,
+    "-1": x => x - 1,
+    "x2": x => 2 * x,
+    "/2": x => Math.floor(x / 2)
 }
 
-
-
 const GOAL = 100;
-const randInt = (max,min) => Math.floor(Math.random() * (max - min) + min);
+const randInt = (max, min) => Math.floor(Math.random() * (max - min) + min);
 
 function start() {
-    return randInt(0,GOAL);
+    return randInt(0, GOAL);
 }
 
 function isWin(num) { return num === GOAL }
@@ -29,17 +27,17 @@ export default function SessionGame(props) {
     const [gameState, setGameState] = useState(start());
     const [count, setCount] = useState(0);
 
-    const addCount = () => setCount(count+1);
+    const addCount = () => setCount(count + 1);
 
-    const handlePlayButtonCLick = (a,e) => {
+    const handlePlayButtonCLick = (a, e) => {
         const number = actions[a](gameState)
         setGameState(number)
         addCount();
-        if(!isWin(number)){
+        if (!isWin(number)) {
             props.handleDone(e);
         }
     }
-    
+
     const reset = (e) => {
         setTheScore(props.name, count);
         setCount(0);
@@ -54,22 +52,22 @@ export default function SessionGame(props) {
 
     const playButtons = (
         <div>
-            {Object.keys(actions).map(a => <button className="gameButtons" key={a} onClick={(e) => handlePlayButtonCLick(a,e)}>{a}</button>)}
+            {Object.keys(actions).map(a => <button className="game-buttons" key={a} onClick={(e) => handlePlayButtonCLick(a, e)}>{a}</button>)}
         </div>
     );
 
     const optButtons = (
         <div>
-            <button className="gameButtons" onClick={(e) => reset(e)}>Play Again</button>
-            <p style={{display:"inline-block", margin:"0 10px"}}><b>You Win!!!</b></p>
-            <button className="gameButtons" onClick={(e) => remove(e)} id="quit">Quit</button>
+            <button className="game-buttons" onClick={(e) => reset(e)}>Play Again</button>
+            <p style={{ display: "inline-block", margin: "0 10px" }}><b>You Win!!!</b></p>
+            <button className="game-buttons" onClick={(e) => remove(e)} id="quit">Quit</button>
         </div>
     )
 
-    const controls = (isWin(gameState) ? optButtons: playButtons);
+    const controls = (isWin(gameState) ? optButtons : playButtons);
 
     return (
-        <div style={{alignContent:"center", textAlign:"center", justifyContent:"center"}}>
+        <div style={{ alignContent: "center", textAlign: "center", justifyContent: "center" }}>
             <h2>{gameState}</h2>
             <h3>Count: {count}</h3>
             {props.active && controls}

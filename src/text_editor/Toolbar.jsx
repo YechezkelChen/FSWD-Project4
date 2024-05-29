@@ -41,7 +41,7 @@ function Toolbar({ currentStyle, onStyleChange, onKeyboardChange, onApplyStyleTo
         <button onClick={() => onKeyboardChange('EngLower')}>Eng Lower</button>
         <button onClick={() => onKeyboardChange('EngUpper')}>Eng Upper</button>
         <button onClick={() => onKeyboardChange('Heb')}>Hebrew</button>
-        <button onClick={() => onKeyboardChange('NumSpec')}>Numbers & Special</button>
+        <button onClick={() => onKeyboardChange('NumSymb')}>Numbers & Symbols</button>
       </div>
       <div className="text-case-controls">
         <button onClick={() => handleCaseChange('upper')}>Uppercase All Text</button>

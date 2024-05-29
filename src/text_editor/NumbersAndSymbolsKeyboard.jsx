@@ -1,7 +1,7 @@
 import React from 'react';
 
-function EngLowerKeyboard({ onTextChange, currentStyle }) {
-    const engLowerLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+function NumbersAndSymbolsKeyboard({ onTextChange, currentStyle }) {
+    const numbersAndSymbolsLetters = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", ",", ".", "/", "@", `"`, "?", "!", "~", "`"];
 
     const handleClicked = ({ target }) => {
         onTextChange({ text: target.innerHTML, style: currentStyle });
@@ -9,9 +9,9 @@ function EngLowerKeyboard({ onTextChange, currentStyle }) {
 
     return (
         <div className="keyboard-button">
-            {engLowerLetters.map((character, i) => (
+            {numbersAndSymbolsLetters.map((character, i) => (
                 <button
-                    key={`${i}-eng-lower-keyboard`}
+                    key={`${i}-num-symb-keyboard`}
                     onClick={handleClicked}
                 >
                     {character}
@@ -21,4 +21,4 @@ function EngLowerKeyboard({ onTextChange, currentStyle }) {
     );
 }
 
-export default EngLowerKeyboard;
+export default NumbersAndSymbolsKeyboard;
