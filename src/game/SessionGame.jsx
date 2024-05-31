@@ -57,7 +57,11 @@ export default function SessionGame(props) {
 
     const playButtons = (
         <div>
-            {Object.keys(actions).map(a => <button className="game-buttons" key={a} onClick={(e) => handlePlayButtonCLick(a, e)}>{a}</button>)}
+            {Object.keys(actions).map(action => <button className="game-buttons"
+                key={action}
+                onClick={(e) => handlePlayButtonCLick(action, e)}>
+                    {action}
+                    </button>)}
         </div>
     );
     //buttons JSX

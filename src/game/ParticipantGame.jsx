@@ -18,22 +18,22 @@ export default function participantGame(props) {
     }
 
     //Return List
-    const participantList = props.players.map(p => {
+    const participantList = props.players.map(playerName => {
         return (
-            <div className={[...props.players][active] === p ? 'active':'idle'}
-                key={p} 
+            <div className={[...props.players][active] === playerName ? 'active':'idle'}
+                key={playerName} 
                 style={{ display: "flex", justifyContent: "space-evenly" }}
                 >
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
-                    <h2>{p}</h2>
-                    <ScoreGame player={p} />
+                    <h2>{playerName}</h2>
+                    <ScoreGame player={playerName} />
                 </div>
                 {props.run &&
                     <SessionGame
-                        name={p}
+                        name={playerName}
                         handleDone={handleDone}
                         handleQuit={handleQuit}
-                        active={props.players[active] === p} />
+                        active={props.players[active] === playerName} />
                 }
             </div>
         )
