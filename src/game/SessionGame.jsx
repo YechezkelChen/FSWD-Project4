@@ -1,5 +1,8 @@
 import { useState } from "react";
+//constant vars
+const GOAL = 100;
 
+//action functions
 const actions = {
     "+1": x => x + 1,
     "-1": x => x - 1,
@@ -7,7 +10,7 @@ const actions = {
     "/2": x => Math.floor(x / 2)
 }
 
-const GOAL = 100;
+//functions
 const randInt = (max, min) => Math.floor(Math.random() * (max - min) + min);
 
 function start() {
@@ -22,13 +25,15 @@ function setTheScore(name, num) {
     window.dispatchEvent(new Event("storage"));
 }
 
+//jsx function
 export default function SessionGame(props) {
-
+    //useStates
     const [gameState, setGameState] = useState(start());
     const [count, setCount] = useState(0);
-
+    //counter
     const addCount = () => setCount(count + 1);
-
+    
+    //handlers
     const handlePlayButtonCLick = (a, e) => {
         const number = actions[a](gameState)
         setGameState(number)
@@ -55,7 +60,7 @@ export default function SessionGame(props) {
             {Object.keys(actions).map(a => <button className="game-buttons" key={a} onClick={(e) => handlePlayButtonCLick(a, e)}>{a}</button>)}
         </div>
     );
-
+    //buttons JSX
     const optButtons = (
         <div>
             <button className="game-buttons" onClick={(e) => reset(e)}>Play Again</button>
@@ -63,9 +68,9 @@ export default function SessionGame(props) {
             <button className="game-buttons" onClick={(e) => remove(e)} id="quit">Quit</button>
         </div>
     )
-
+    //button conditions
     const controls = (isWin(gameState) ? optButtons : playButtons);
-
+    //jsc return
     return (
         <div style={{ alignContent: "center", textAlign: "center", justifyContent: "center" }}>
             <h2>{gameState}</h2>

@@ -24,7 +24,7 @@ export default function highScores() {
     const [first, setFirst] = useState(scoresAverage[0]);
     const [second, setSecond] = useState(scoresAverage[1]);
     const [third, setThird] = useState(scoresAverage[2]);
-
+    //event listener
     window.addEventListener('storage', () => {
         const storageKeys = Object.keys(localStorage);
         const averageScores = {}
@@ -32,7 +32,7 @@ export default function highScores() {
             const scores = JSON.parse(localStorage.getItem(key));
             averageScores[key] = scores.length !== 0 ? Math.round(scores.reduce((a, b) => a + b) / scores.length) : 0;
         }
-
+        //sorter
         var scoresAverage = new Array()
         for (let name in averageScores) {
             scoresAverage.push([name, averageScores[name]]);

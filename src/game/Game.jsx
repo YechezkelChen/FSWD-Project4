@@ -22,10 +22,6 @@ export default function Game() {
         }
     }
 
-    const removePlayer = (name) => {
-        setPlayers(players.filter(p => p.name !== name));
-    }
-
     const startGame = () => {
         if (players.length === 0) {
             alert("No players in Queue!")
